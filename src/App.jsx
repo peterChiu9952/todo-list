@@ -57,7 +57,7 @@ function App() {
         setMoveDoneToEnd(true);
     };
 
-    const sortByTime = () => {
+    const sortByAscendingTime = () => {
         const updatedTodos = todos.sort((a, b) => a.createdAt - b.createdAt);
 
         setTodos(updatedTodos);
@@ -103,7 +103,7 @@ function App() {
                 <Typography>Move done things to end?</Typography>
                 <Switch
                     checked={moveDoneToEnd}
-                    onChange={moveDoneToEnd ? sortByTime : sortByStatus}
+                    onChange={moveDoneToEnd ? sortByAscendingTime : sortByStatus}
                 />
             </Box>
             <Box>
