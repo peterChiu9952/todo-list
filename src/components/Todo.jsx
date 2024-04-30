@@ -1,6 +1,7 @@
 import { Box, Checkbox, Typography } from "@mui/material";
+import styles from "./Todo.module.css";
 
-function Todo({ todo, handleDataChange }) {
+function Todo({ todo, toggleTodoStatus, removeTodo }) {
     return (
         <Box
             sx={{
@@ -12,14 +13,12 @@ function Todo({ todo, handleDataChange }) {
         >
             <Checkbox
                 checked={todo.isDone}
-                onChange={() => {
-                    todo.isDone = !todo.isDone;
-                }}
+                onChange={() => toggleTodoStatus(todo.id)}
             />
-            <Typography sx={{ flexGrow: 1, margin: "auto" }}>
+            <Typography className={`${todo.isDone && styles.toggleDone}`} sx={{ flexGrow: 1, margin: "auto" }}>
                 {todo.title}
             </Typography>
-            <button>XX</button>
+            <button onClick={() => removeTodo(todo.id)}>XX</button>
         </Box>
     );
 }

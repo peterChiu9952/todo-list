@@ -14,12 +14,31 @@ import Todo from "./components/Todo";
 import { useState } from "react";
 
 function App() {
-    const [todos, setTodo] = useState(testData);
+    const [todos, setTodos] = useState(testData);
     const [progress, setProgress] = useState(50);
 
-    const handleDataChange = () => {
-        //TODO
+    const toggleTodoStatus = (id) => {
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === id) {
+                return { ...todo, isDone: !todo.isDone };
+            }
+            return todo;
+        });
+
+        setTodos(updatedTodos);
+        updateProgress(updatedTodos);
     };
+
+    const updateProgress = (updatedTodos) => {
+        const done = updatedTodos.filter((todo) => todo.isDone).length;
+        setProgress(parseInt((done / updatedTodos.length) * 100));
+    };
+
+    const removeTodo = (id) => {
+        const updatedTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(updatedTodos);
+    };
+
     return (
         <Container className="app">
             <Box>
@@ -37,8 +56,9 @@ function App() {
                         <Todo
                             key={todo.id}
                             todo={todo}
-                            handleDataChange={handleDataChange}
-                        ></Todo>
+                            toggleTodoStatus={toggleTodoStatus}
+                            removeTodo={removeTodo}
+                        />
                     ))}
                 </Box>
                 <Divider />
