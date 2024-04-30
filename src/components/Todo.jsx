@@ -15,7 +15,10 @@ function Todo({ todo, toggleTodoStatus, removeTodo }) {
                 checked={todo.isDone}
                 onChange={() => toggleTodoStatus(todo.id)}
             />
-            <Typography className={`${todo.isDone && styles.toggleDone}`} sx={{ flexGrow: 1, margin: "auto" }}>
+            <Typography
+                className={`${todo.isDone && styles.toggleDone}`}
+                sx={{ flexGrow: 1, margin: "auto" }}
+            >
                 {todo.title}
             </Typography>
             <button onClick={() => removeTodo(todo.id)}>XX</button>
