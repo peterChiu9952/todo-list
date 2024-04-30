@@ -12,11 +12,13 @@ import "./App.css";
 import { testData } from "./testData";
 import Todo from "./components/Todo";
 import { useState } from "react";
+import { nanoid } from "nanoid";
 
 function App() {
     const [todos, setTodos] = useState(testData);
     const [progress, setProgress] = useState(50);
     const [moveDoneToEnd, setMoveDoneToEnd] = useState(false);
+    const [newTodoTitle, setNewTodoTitle] = useState("");
 
     const toggleTodoStatus = (id) => {
         const updatedTodos = todos.map((todo) => {
@@ -62,6 +64,17 @@ function App() {
         setMoveDoneToEnd(false);
     };
 
+    const createTodo = (event) => {
+        event.preventDefault();
+        const newTodo = {
+            id: nanoid(),
+            title: newTodoTitle,
+            createdAt: new Date(),
+        };
+
+        setTodos([...todos, newTodo]);
+    };
+
     return (
         <Container className="app">
             <Box>
@@ -95,13 +108,19 @@ function App() {
             </Box>
             <Box>
                 <Typography>Add to list</Typography>
-                <Box className="new-todo">
+                <form onSubmit={createTodo} className="create-todo-form">
                     <Input
+                        value={newTodoTitle}
+                        onChange={(event) =>
+                            setNewTodoTitle(event.target.value)
+                        }
                         sx={{ bgcolor: "rgb(255, 255, 255)", flex: 2 }}
                         disableUnderline
                     />
-                    <Button variant="contained">+</Button>
-                </Box>
+                    <Button type="submit" variant="contained">
+                        +
+                    </Button>
+                </form>
             </Box>
         </Container>
     );
