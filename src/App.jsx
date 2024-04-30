@@ -16,6 +16,7 @@ import { useState } from "react";
 function App() {
     const [todos, setTodos] = useState(testData);
     const [progress, setProgress] = useState(50);
+    const [moveDoneToEnd, setMoveDoneToEnd] = useState(false);
 
     const toggleTodoStatus = (id) => {
         const updatedTodos = todos.map((todo) => {
@@ -37,6 +38,28 @@ function App() {
     const removeTodo = (id) => {
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
+    };
+
+    const sortByStatus = () => {
+        const updatedTodos = todos.sort((a, b) => {
+            if (a.isDone && !b.isDone) {
+                return 1;
+            }
+            if (!a.isDone && b.isDone) {
+                return -1;
+            }
+            return 0;
+        });
+
+        setTodos(updatedTodos);
+        setMoveDoneToEnd(true);
+    };
+
+    const sortByTime = () => {
+        const updatedTodos = todos.sort((a, b) => a.createdAt - b.createdAt);
+
+        setTodos(updatedTodos);
+        setMoveDoneToEnd(false);
     };
 
     return (
@@ -65,7 +88,10 @@ function App() {
             </Box>
             <Box className="option">
                 <Typography>Move done things to end?</Typography>
-                <Switch defaultChecked />
+                <Switch
+                    checked={moveDoneToEnd}
+                    onChange={moveDoneToEnd ? sortByTime : sortByStatus}
+                />
             </Box>
             <Box>
                 <Typography>Add to list</Typography>
