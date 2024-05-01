@@ -1,4 +1,5 @@
 import { Box, Checkbox, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import styles from "./Todo.module.css";
 
 function Todo({ todo, toggleTodoStatus, removeTodo }) {
@@ -12,7 +13,7 @@ function Todo({ todo, toggleTodoStatus, removeTodo }) {
             }}
         >
             <Checkbox
-                checked={todo.isDone}
+                checked={todo.isDone || false}
                 onChange={() => toggleTodoStatus(todo.id)}
             />
             <Typography
@@ -25,5 +26,16 @@ function Todo({ todo, toggleTodoStatus, removeTodo }) {
         </Box>
     );
 }
+
+Todo.propTypes = {
+    todo: PropTypes.shape({
+        id: PropTypes.string,
+        title: PropTypes.string,
+        isDone: PropTypes.bool,
+        createdAt: PropTypes.instanceOf(Date),
+    }),
+    toggleTodoStatus: PropTypes.func,
+    removeTodo: PropTypes.func,
+};
 
 export default Todo;
