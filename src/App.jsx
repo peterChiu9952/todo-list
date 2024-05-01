@@ -41,8 +41,8 @@ function App() {
         setTodos(updatedTodos);
     };
 
-    const sortByStatus = () => {
-        const updatedTodos = todos.sort((a, b) => {
+    const sortByStatus = (updatedTodos) => {
+        updatedTodos.sort((a, b) => {
             if (a.isDone && !b.isDone) {
                 return 1;
             }
@@ -51,16 +51,10 @@ function App() {
             }
             return 0;
         });
-
-        setTodos(updatedTodos);
-        setMoveDoneToEnd(true);
     };
 
-    const sortByAscendingTime = () => {
-        const updatedTodos = todos.sort((a, b) => a.createdAt - b.createdAt);
-
-        setTodos(updatedTodos);
-        setMoveDoneToEnd(false);
+    const sortByAscendingTime = (updatedTodos) => {
+        updatedTodos.sort((a, b) => a.createdAt - b.createdAt);
     };
 
     const createTodo = (event) => {
@@ -77,6 +71,18 @@ function App() {
     useEffect(() => {
         updateProgress(todos);
     }, [todos]);
+
+    useEffect(() => {
+        const updatedTodos = todos;
+
+        sortByAscendingTime(updatedTodos);
+        if (moveDoneToEnd) {
+            sortByStatus(updatedTodos);
+        }
+
+        setTodos(updatedTodos);
+    }, [todos]);
+
     return (
         <Container className="app">
             <Box>
@@ -105,7 +111,12 @@ function App() {
                 <Typography>Move done things to end?</Typography>
                 <Switch
                     checked={moveDoneToEnd}
-                    onChange={moveDoneToEnd ? sortByAscendingTime : sortByStatus}
+                    onChange={() => {
+                        moveDoneToEnd
+                            ? sortByAscendingTime(todos)
+                            : sortByStatus(todos);
+                        setMoveDoneToEnd(!moveDoneToEnd);
+                    }}
                 />
             </Box>
             <Box>
