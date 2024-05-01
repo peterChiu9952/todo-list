@@ -13,10 +13,11 @@ import { testData } from "./testData";
 import Todo from "./components/Todo";
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
+import ProgressBar from "./components/ProgressBar";
 
 function App() {
     const [todos, setTodos] = useState(testData);
-    const [progress, setProgress] = useState(50);
+    const [progress, setProgress] = useState(0);
     const [moveDoneToEnd, setMoveDoneToEnd] = useState(false);
     const [newTodoTitle, setNewTodoTitle] = useState("");
 
@@ -91,10 +92,7 @@ function App() {
             </Box>
             <Box>
                 <Divider />
-                <Box>
-                    <Typography>{progress}</Typography>
-                    <LinearProgress variant="determinate" value={progress} />
-                </Box>
+                <ProgressBar value={progress}/>
                 <Box>
                     {todos.map((todo) => (
                         <Todo
