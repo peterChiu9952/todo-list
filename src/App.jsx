@@ -11,7 +11,7 @@ import {
 import "./App.css";
 import { testData } from "./testData";
 import Todo from "./components/Todo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 
 function App() {
@@ -29,7 +29,6 @@ function App() {
         });
 
         setTodos(updatedTodos);
-        updateProgress(updatedTodos);
     };
 
     const updateProgress = (updatedTodos) => {
@@ -75,6 +74,9 @@ function App() {
         setTodos([...todos, newTodo]);
     };
 
+    useEffect(() => {
+        updateProgress(todos);
+    }, [todos]);
     return (
         <Container className="app">
             <Box>
