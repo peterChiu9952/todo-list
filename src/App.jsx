@@ -2,7 +2,6 @@ import {
     Box,
     Button,
     Divider,
-    Switch,
     Typography,
     Input,
     ThemeProvider,
@@ -15,6 +14,7 @@ import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import ProgressBar from "./components/ProgressBar/ProgressBar";
 import { theme } from "./theme";
+import { CustomSwitch } from "./components/CustomSwitch/CustomSwitch";
 
 function App() {
     const [todos, setTodos] = useState(testData);
@@ -111,7 +111,7 @@ function App() {
                 <Divider />
                 <Box className={styles.option}>
                     <Typography>Move done things to end?</Typography>
-                    <Switch
+                    <CustomSwitch
                         checked={moveDoneToEnd}
                         onChange={() => {
                             moveDoneToEnd
