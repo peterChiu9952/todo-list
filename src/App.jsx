@@ -10,7 +10,11 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import styles from "./App.module.css";
 import { testData } from "./testData";
 import Todo from "./components/Todo/Todo";
-import { useEffect, useState } from "react";
+import {
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import { nanoid } from "nanoid";
 import ProgressBar from "./components/ProgressBar/ProgressBar";
 import { theme } from "./theme";
@@ -21,6 +25,8 @@ function App() {
     const [progress, setProgress] = useState(0);
     const [moveDoneToEnd, setMoveDoneToEnd] = useState(false);
     const [newTodoTitle, setNewTodoTitle] = useState("");
+    const todoListRef = useRef(undefined);
+    const todoCreatedRef = useRef(false);
 
     const toggleTodoStatus = (id) => {
         const updatedTodos = todos.map((todo) => {
@@ -66,8 +72,15 @@ function App() {
             title: newTodoTitle,
             createdAt: new Date(),
         };
-
+        todoCreatedRef.current = true;
         setTodos([...todos, newTodo]);
+    };
+
+    const scrollTodoListToBottom = () => {
+        todoListRef.current.scrollTo({
+            top: todoListRef.current.scrollHeight,
+            behavior: "smooth",
+        });
     };
 
     useEffect(() => {
@@ -85,6 +98,13 @@ function App() {
         setTodos(updatedTodos);
     }, [todos]);
 
+    useEffect(() => {
+        if (todoCreatedRef.current) {
+            scrollTodoListToBottom();
+            todoCreatedRef.current = false;
+        }
+    }, [todos]);
+
     return (
         <ThemeProvider theme={theme}>
             <Box className={styles.root}>
@@ -98,7 +118,7 @@ function App() {
                 <Box className={styles.progressBar}>
                     <ProgressBar value={progress} />
                 </Box>
-                <Box className={styles.todoList}>
+                <Box className={styles.todoList} ref={todoListRef}>
                     {todos.map((todo) => (
                         <Todo
                             key={todo.id}
