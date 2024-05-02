@@ -41,7 +41,8 @@ function App() {
 
     const updateProgress = (updatedTodos) => {
         const done = updatedTodos.filter((todo) => todo.isDone).length;
-        setProgress(parseInt((done / updatedTodos.length) * 100));
+        const value = parseInt((done / updatedTodos.length) * 100);
+        setProgress(isNaN(value) ? 0 : value);
     };
 
     const removeTodo = (id) => {
@@ -74,6 +75,7 @@ function App() {
         };
         todoCreatedRef.current = true;
         setTodos([...todos, newTodo]);
+        setNewTodoTitle("");
     };
 
     const scrollTodoListToBottom = () => {
