@@ -9,14 +9,16 @@ function Todo({ todo, toggleTodoStatus, removeTodo }) {
             <Checkbox
                 checked={todo.isDone || false}
                 onChange={() => toggleTodoStatus(todo.id)}
+                data-testid="toggleTodo"
             />
             <Typography
                 className={`${styles.todoTitle} ${todo.isDone && styles.toggleDone}`}
                 sx={{ margin: "auto" }}
+                data-testid="todoTitle"
             >
                 {todo.title}
             </Typography>
-            <IconButton onClick={() => removeTodo(todo.id)}>
+            <IconButton onClick={() => removeTodo(todo.id)} data-testid="deleteTodo">
                 <ClearRoundedIcon fontSize="medium" color="secondary" />
             </IconButton>
         </Box>

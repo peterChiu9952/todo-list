@@ -18,7 +18,7 @@ function ProgressBar({ value }) {
     return (
         <Box className={styles.root}>
             <Box >
-                <Typography>{`${value}%`}</Typography>
+                <Typography data-testid="progressValue">{`${value}%`}</Typography>
             </Box>
             <Box className={styles.bar}>
                 <CustomLinearProgress variant="determinate" value={value} />

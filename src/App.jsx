@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import styles from "./App.module.css";
-import { testData } from "./testData";
+import {testData} from "./testData";
 import Todo from "./components/Todo/Todo";
 import {
     useEffect,
@@ -132,6 +132,7 @@ function App() {
                 <Box className={styles.option}>
                     <Typography>Move done things to end?</Typography>
                     <CustomSwitch
+                        data-testid="moveDoneToEnd"
                         checked={moveDoneToEnd}
                         onChange={() => {
                             moveDoneToEnd
@@ -154,11 +155,13 @@ function App() {
                             }
                             className={styles.titleInput}
                             disableUnderline
+                            data-testid="addTodoInput"
                         />
                         <Button
                             type="submit"
                             variant="contained"
                             className={styles.submit}
+                            data-testid="addTodoButton"
                         >
                             <AddRoundedIcon fontSize="large" />
                         </Button>
