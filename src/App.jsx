@@ -10,10 +10,10 @@ import {
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import styles from "./App.module.css";
 import { testData } from "./testData";
-import Todo from "./components/Todo";
+import Todo from "./components/Todo/Todo";
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
-import ProgressBar from "./components/ProgressBar";
+import ProgressBar from "./components/ProgressBar/ProgressBar";
 import { theme } from "./theme";
 
 function App() {
