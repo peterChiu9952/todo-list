@@ -1,19 +1,20 @@
 import {
     Box,
     Button,
-    Container,
     Divider,
     Switch,
     Typography,
     Input,
-    LinearProgress,
+    ThemeProvider,
 } from "@mui/material";
-import "./App.css";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import styles from "./App.module.css";
 import { testData } from "./testData";
 import Todo from "./components/Todo";
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import ProgressBar from "./components/ProgressBar";
+import { theme } from "./theme";
 
 function App() {
     const [todos, setTodos] = useState(testData);
@@ -85,15 +86,19 @@ function App() {
     }, [todos]);
 
     return (
-        <Container className="app">
-            <Box>
-                <Typography variant="h3">Todo List</Typography>
-                <Typography variant="h5">Add things to do</Typography>
-            </Box>
-            <Box>
+        <ThemeProvider theme={theme}>
+            <Box className={styles.root}>
+                <Box className={styles.header}>
+                    <Typography variant="h3">Todo List</Typography>
+                    <Typography variant="subtitle1">
+                        Add things to do
+                    </Typography>
+                </Box>
                 <Divider />
-                <ProgressBar value={progress}/>
-                <Box>
+                <Box className={styles.progressBar}>
+                    <ProgressBar value={progress} />
+                </Box>
+                <Box className={styles.todoList}>
                     {todos.map((todo) => (
                         <Todo
                             key={todo.id}
@@ -104,36 +109,43 @@ function App() {
                     ))}
                 </Box>
                 <Divider />
-            </Box>
-            <Box className="option">
-                <Typography>Move done things to end?</Typography>
-                <Switch
-                    checked={moveDoneToEnd}
-                    onChange={() => {
-                        moveDoneToEnd
-                            ? sortByAscendingTime(todos)
-                            : sortByStatus(todos);
-                        setMoveDoneToEnd(!moveDoneToEnd);
-                    }}
-                />
-            </Box>
-            <Box>
-                <Typography>Add to list</Typography>
-                <form onSubmit={createTodo} className="create-todo-form">
-                    <Input
-                        value={newTodoTitle}
-                        onChange={(event) =>
-                            setNewTodoTitle(event.target.value)
-                        }
-                        sx={{ bgcolor: "rgb(255, 255, 255)", flex: 2 }}
-                        disableUnderline
+                <Box className={styles.option}>
+                    <Typography>Move done things to end?</Typography>
+                    <Switch
+                        checked={moveDoneToEnd}
+                        onChange={() => {
+                            moveDoneToEnd
+                                ? sortByAscendingTime(todos)
+                                : sortByStatus(todos);
+                            setMoveDoneToEnd(!moveDoneToEnd);
+                        }}
                     />
-                    <Button type="submit" variant="contained">
-                        +
-                    </Button>
-                </form>
+                </Box>
+                <Box className={styles.addToList}>
+                    <Typography>Add to list</Typography>
+                    <form
+                        onSubmit={createTodo}
+                        className={styles.createTodoForm}
+                    >
+                        <Input
+                            value={newTodoTitle}
+                            onChange={(event) =>
+                                setNewTodoTitle(event.target.value)
+                            }
+                            className={styles.titleInput}
+                            disableUnderline
+                        />
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            className={styles.submit}
+                        >
+                            <AddRoundedIcon fontSize="large" />
+                        </Button>
+                    </form>
+                </Box>
             </Box>
-        </Container>
+        </ThemeProvider>
     );
 }
 

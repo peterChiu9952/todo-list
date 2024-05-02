@@ -1,28 +1,24 @@
-import { Box, Checkbox, Typography } from "@mui/material";
+import { Box, Checkbox, IconButton, Typography } from "@mui/material";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import PropTypes from "prop-types";
 import styles from "./Todo.module.css";
 
 function Todo({ todo, toggleTodoStatus, removeTodo }) {
     return (
-        <Box
-            sx={{
-                display: "flex",
-                backgroundColor: "rgb(255, 255, 255)",
-                borderRadius: "4px",
-                margin: "8px 0",
-            }}
-        >
+        <Box className={styles.root}>
             <Checkbox
                 checked={todo.isDone || false}
                 onChange={() => toggleTodoStatus(todo.id)}
             />
             <Typography
-                className={`${todo.isDone && styles.toggleDone}`}
-                sx={{ flexGrow: 1, margin: "auto" }}
+                className={`${styles.todoTitle} ${todo.isDone && styles.toggleDone}`}
+                sx={{ margin: "auto" }}
             >
                 {todo.title}
             </Typography>
-            <button onClick={() => removeTodo(todo.id)}>XX</button>
+            <IconButton onClick={() => removeTodo(todo.id)}>
+                <ClearRoundedIcon fontSize="medium" color="secondary" />
+            </IconButton>
         </Box>
     );
 }

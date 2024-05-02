@@ -1,0 +1,51 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header,
+.todoList,
+.addToList,
+.option,
+.progressBar {
+    padding: 0 30px;
+}
+
+.header {
+    padding-top: 30px;
+}
+
+.todoList {
+    margin-top: 10px;
+    overflow-y: scroll;
+    flex-grow: 1;
+}
+
+.addToList {
+    padding-bottom: 30px;
+}
+
+.option {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.createTodoForm {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.titleInput {
+    background-color: rgb(255, 255, 255);
+    flex: 1;
+}
+
+.submit {
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+}
