@@ -15,7 +15,7 @@ import {
     useRef,
     useState,
 } from "react";
-import { nanoid } from "nanoid";
+import { v4 as uuidv4 } from 'uuid';
 import ProgressBar from "./components/ProgressBar/ProgressBar";
 import { theme } from "./theme";
 import { CustomSwitch } from "./components/CustomSwitch/CustomSwitch";
@@ -68,7 +68,7 @@ function App() {
     const createTodo = (event) => {
         event.preventDefault();
         const newTodo = {
-            id: nanoid(),
+            id: uuidv4(),
             title: newTodoTitle,
             createdAt: new Date(),
         };
