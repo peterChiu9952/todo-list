@@ -1,23 +1,28 @@
-import { Box, LinearProgress, Typography, linearProgressClasses } from "@mui/material";
+import {
+    Box,
+    LinearProgress,
+    Typography,
+    linearProgressClasses,
+} from "@mui/material";
 import PropTypes from "prop-types";
-import { styled } from '@mui/material/styles';
-import styles from "./ProgressBar.module.css"
+import { styled } from "@mui/material/styles";
+import styles from "./ProgressBar.module.css";
 
 const CustomLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 12,
     borderRadius: 5,
     [`&.${linearProgressClasses.colorPrimary}`]: {
-      backgroundColor: "rgb(255, 255, 255)",
+        backgroundColor: "rgb(255, 255, 255)",
     },
     [`& .${linearProgressClasses.bar}`]: {
-      borderRadius: 5,
+        borderRadius: 5,
     },
-  }));
+}));
 
 function ProgressBar({ value }) {
     return (
         <Box className={styles.root}>
-            <Box >
+            <Box>
                 <Typography data-testid="progressValue">{`${value}%`}</Typography>
             </Box>
             <Box className={styles.bar}>

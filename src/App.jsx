@@ -8,14 +8,10 @@ import {
 } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import styles from "./App.module.css";
-import {testData} from "./testData";
+import { testData } from "./testData";
 import Todo from "./components/Todo/Todo";
-import {
-    useEffect,
-    useRef,
-    useState,
-} from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import ProgressBar from "./components/ProgressBar/ProgressBar";
 import { theme } from "./theme";
 import { CustomSwitch } from "./components/CustomSwitch/CustomSwitch";
@@ -89,6 +85,7 @@ function App() {
         updateProgress(todos);
     }, [todos]);
 
+    // By default, todos are sorted by time. If the user selects "move Done To End", they are sorted by whether they are completed.
     useEffect(() => {
         const updatedTodos = todos;
 
@@ -100,6 +97,7 @@ function App() {
         setTodos(updatedTodos);
     }, [todos]);
 
+    // After adding a todo, scroll to the bottom of the todo list
     useEffect(() => {
         if (todoCreatedRef.current) {
             scrollTodoListToBottom();
@@ -110,6 +108,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Box className={styles.root}>
+                {/* header */}
                 <Box className={styles.header}>
                     <Typography variant="h3">Todo List</Typography>
                     <Typography variant="subtitle1">
@@ -117,9 +116,11 @@ function App() {
                     </Typography>
                 </Box>
                 <Divider />
+                {/* progress bar */}
                 <Box className={styles.progressBar}>
                     <ProgressBar value={progress} />
                 </Box>
+                {/* todo list */}
                 <Box className={styles.todoList} ref={todoListRef}>
                     {todos.map((todo) => (
                         <Todo
@@ -131,6 +132,7 @@ function App() {
                     ))}
                 </Box>
                 <Divider />
+                {/* The option whether to move completion todo to the end */}
                 <Box className={styles.option}>
                     <Typography>Move done things to end?</Typography>
                     <CustomSwitch
@@ -144,6 +146,7 @@ function App() {
                         }}
                     />
                 </Box>
+                {/* Add new todo */}
                 <Box className={styles.addToList}>
                     <Typography>Add to list</Typography>
                     <form

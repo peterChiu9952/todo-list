@@ -12,13 +12,18 @@ function Todo({ todo, toggleTodoStatus, removeTodo }) {
                 data-testid="toggleTodo"
             />
             <Typography
-                className={`${styles.todoTitle} ${todo.isDone && styles.toggleDone}`}
+                className={`${styles.todoTitle} ${
+                    todo.isDone && styles.toggleDone
+                }`}
                 sx={{ margin: "auto" }}
                 data-testid="todoTitle"
             >
                 {todo.title}
             </Typography>
-            <IconButton onClick={() => removeTodo(todo.id)} data-testid="deleteTodo">
+            <IconButton
+                onClick={() => removeTodo(todo.id)}
+                data-testid="deleteTodo"
+            >
                 <ClearRoundedIcon fontSize="medium" color="secondary" />
             </IconButton>
         </Box>
